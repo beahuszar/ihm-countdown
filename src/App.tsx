@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 interface TimeLeft {
@@ -12,7 +12,7 @@ function App() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
   useEffect(() => {
-    const targetDate = new Date('2026-04-24T20:00:00')
+    const targetDate = new Date('2026-04-24T20:30:00')
 
     const calculateTimeLeft = () => {
       const now = new Date()
@@ -61,7 +61,7 @@ function App() {
             <span className="time-label">MP</span>
           </div>
         </div>
-        <div className="date-info">2026. ÁPRILIS 24. - 20:00</div>
+        <div className="date-info">2026. ÁPRILIS 24. - 20:30</div>
       </div>
     </div>
   )
