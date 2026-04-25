@@ -13,8 +13,8 @@ function App() {
   const [isPastFirst, setIsPastFirst] = useState(false)
 
   useEffect(() => {
-    const firstConcert = new Date('2026-04-24T20:30:00')
-    const secondConcert = new Date('2026-04-25T20:30:00')
+    const firstConcert = new Date('2026-04-25T20:30:00')
+    const secondConcert = new Date('2026-06-25T22:30:00')
 
     const calculateTimeLeft = () => {
       const now = new Date()
@@ -48,7 +48,7 @@ function App() {
       <div className="flames-overlay"></div>
       <div className="content">
         <img src="/image.png" alt="IHM Logo" className="logo" />
-        <h1 className="title">{isPastFirst ? 'Mikor lesz már a második IHM koncert?' : 'Mikor lesz már IHM koncert?'}</h1>
+        <h1 className="title">{isPastFirst ? 'Mikor lesz már Orfű?' : 'Mikor lesz már a második IHM koncert?'}</h1>
         <div className="countdown">
           <div className="time-block">
             <span className="time-value">{String(timeLeft.days).padStart(2, '0')}</span>
@@ -70,7 +70,7 @@ function App() {
             <span className="time-label">MP</span>
           </div>
         </div>
-        <div className="date-info">2026. ÁPRILIS 24-25. 20:30</div>
+        <div className="date-info">2026. {isPastFirst ? 'JÚNIUS 25. 22:30' : 'ÁPRILIS 25. 11:07'}</div>
       </div>
     </div>
   )
