@@ -68,7 +68,7 @@ function App() {
             <span className="time-label">MP</span>
           </div>
         </div>
-        <div className="date-info">2026. ???. ??:??</div>
+        <div className="date-info">2026. ???. ??. ??:??</div>
       </div>
     </div>
   )
