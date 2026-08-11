@@ -8,37 +8,35 @@ interface TimeLeft {
   seconds: number
 }
 
+const CONCERT_DATE = new Date('2026-04-25T20:30:00').getTime()
+
+function getTimeLeft(): TimeLeft {
+  const difference = CONCERT_DATE - Date.now()
+
+  if (difference > 0) {
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    }
+  }
+
+  return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+}
+
 function App() {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-  const [isPastFirst, setIsPastFirst] = useState(false)
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft)
 
   useEffect(() => {
-    const firstConcert = new Date('2026-04-25T20:30:00')
-    const secondConcert = new Date('2026-06-25T22:30:00')
+    const timer = setInterval(() => {
+      const updated = getTimeLeft()
+      setTimeLeft(updated)
 
-    const calculateTimeLeft = () => {
-      const now = new Date()
-      let targetDate = firstConcert
-
-      if (now >= firstConcert) {
-        setIsPastFirst(true)
-        targetDate = secondConcert
+      if (updated.days === 0 && updated.hours === 0 && updated.minutes === 0 && updated.seconds === 0) {
+        clearInterval(timer)
       }
-
-      const difference = targetDate.getTime() - now.getTime()
-
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-        })
-      }
-    }
-
-    calculateTimeLeft()
-    const timer = setInterval(calculateTimeLeft, 1000)
+    }, 1000)
 
     return () => clearInterval(timer)
   }, [])
@@ -48,7 +46,7 @@ function App() {
       <div className="flames-overlay"></div>
       <div className="content">
         <img src="/image.png" alt="IHM Logo" className="logo" />
-        <h1 className="title">{isPastFirst ? 'Mikor lesz már Orfű?' : 'Mikor lesz már a második IHM koncert?'}</h1>
+        <h1 className="title">Mikor lesz már IHM koncert újra? 🥹</h1>
         <div className="countdown">
           <div className="time-block">
             <span className="time-value">{String(timeLeft.days).padStart(2, '0')}</span>
@@ -70,7 +68,7 @@ function App() {
             <span className="time-label">MP</span>
           </div>
         </div>
-        <div className="date-info">2026. {isPastFirst ? 'JÚNIUS 25. 22:30' : 'ÁPRILIS 25. 11:07'}</div>
+        <div className="date-info">2026. ???. ??:??</div>
       </div>
     </div>
   )
