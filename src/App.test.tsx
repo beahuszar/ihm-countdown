@@ -40,7 +40,7 @@ describe('App', () => {
     setNowRelativeToConcert(msBeforeConcert)
     const { container } = render(<App />)
 
-    expect(timeValues(container)).toEqual(['02', '03', '04', '04'])
+    expect(timeValues(container)).toEqual(['02', '03', '04', '05'])
   })
 
   it('ticks the seconds down every second', () => {
