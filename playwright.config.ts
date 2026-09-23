@@ -4,7 +4,10 @@ export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
   outputDir: './playwright-results',
-  reporter: [['html', { outputFolder: 'playwright-report', open: 'never' }]],
+  reporter: [
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['junit', { outputFile: 'playwright-results/junit.xml' }],
+  ],
   use: {
     baseURL: 'http://localhost:5173',
   },
