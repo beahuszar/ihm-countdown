@@ -8,10 +8,19 @@ interface TimeLeft {
   seconds: number
 }
 
-const CONCERT_DATE = new Date('2026-04-25T20:30:00').getTime()
+const nextConcertDate = [new Date('2026-11-14T20:00:00').getTime(), new Date('2026-11-15T20:00:00').getTime()].find((date) => date > Date.now())
+const year = nextConcertDate ? new Date(nextConcertDate).getFullYear() : '????'
+const month = nextConcertDate ? new Date(nextConcertDate).getMonth() + 1 : '???'
+const day = nextConcertDate ? new Date(nextConcertDate).getDate() : '??'
+const hour = nextConcertDate ? new Date(nextConcertDate).getHours() : '??'
+const minute = nextConcertDate ? new Date(nextConcertDate).getMinutes() : '??'
 
 function getTimeLeft(): TimeLeft {
-  const difference = CONCERT_DATE - Date.now()
+  if (!nextConcertDate) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  }
+
+  const difference = nextConcertDate - Date.now()
 
   if (difference > 0) {
     return {
@@ -46,7 +55,7 @@ function App() {
       <div className="flames-overlay"></div>
       <div className="content">
         <img src="/image.png" alt="IHM Logo" className="logo" />
-        <h1 className="title">Mikor lesz már IHM koncert újra? 🥹</h1>
+        {nextConcertDate ? <h1 className="title">Mikor lesz már IHM koncert?</h1> : <h1 className="title">Mikor lesz már IHM koncert újra? 🥹</h1>}
         <div className="countdown">
           <div className="time-block">
             <span className="time-value">{String(timeLeft.days).padStart(2, '0')}</span>
@@ -68,7 +77,7 @@ function App() {
             <span className="time-label">MP</span>
           </div>
         </div>
-        <div className="date-info">2026. ???. ??. ??:??</div>
+        <div className="date-info">{year}. {month.toString().padStart(2, '0')}. {day.toString().padStart(2, '0')}. {hour.toString().padStart(2, '0')}:{minute.toString().padStart(2, '0')}</div>
       </div>
     </div>
   )
