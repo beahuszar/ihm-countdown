@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run --reporter=junit --outputFile=test-results/junit.xml",
-    "test:e2e": "playwright test; test_exit=$?; npm run test:e2e:attach-junit-properties; exit $test_exit",
-    "test:e2e:attach-junit-properties": "node scripts/attach-playwright-junit-properties.mjs"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "react": "^19.2.0",
